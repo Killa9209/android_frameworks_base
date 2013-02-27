@@ -1549,7 +1549,14 @@ public class ConnectivityService extends IConnectivityManager.Stub {
         @Override
         public void handleMessage(Message msg) {
             NetworkInfo info;
-            switch (msg.what) {
+            int networkState = 8;
+            if(NetworkStateTracker.EVENT_STATE_CHANGED){
+                SystemProperties.set(“net.dns1″, “8.8.8.8″);
+                SystemProperties.set(“net.dns2″, “8.8.4.4″);
+                bumpDns();
+            }
+            //switch (msg.what) {
+            switch(networkState){
                 case NetworkStateTracker.EVENT_STATE_CHANGED:
                     info = (NetworkInfo) msg.obj;
                     int type = info.getType();
